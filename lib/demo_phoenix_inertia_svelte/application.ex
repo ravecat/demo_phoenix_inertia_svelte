@@ -10,10 +10,13 @@ defmodule DemoPhoenixInertiaSvelte.Application do
     children = [
       DemoPhoenixInertiaSvelteWeb.Telemetry,
       DemoPhoenixInertiaSvelte.Repo,
-      {DNSCluster, query: Application.get_env(:demo_phoenix_inertia_svelte, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:demo_phoenix_inertia_svelte, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: DemoPhoenixInertiaSvelte.PubSub},
       # Start a worker by calling: DemoPhoenixInertiaSvelte.Worker.start_link(arg)
       # {DemoPhoenixInertiaSvelte.Worker, arg},
+      # Start the SSR process pool for Inertia/Svelte
+      {Inertia.SSR, path: Path.join([Application.app_dir(:demo_phoenix_inertia_svelte), "priv"])},
       # Start to serve requests, typically the last entry
       DemoPhoenixInertiaSvelteWeb.Endpoint
     ]

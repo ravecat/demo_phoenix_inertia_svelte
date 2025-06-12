@@ -8,6 +8,7 @@ defmodule DemoPhoenixInertiaSvelteWeb.Router do
     plug :put_root_layout, html: {DemoPhoenixInertiaSvelteWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Inertia.Plug
   end
 
   pipeline :api do
@@ -18,6 +19,7 @@ defmodule DemoPhoenixInertiaSvelteWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/inertia", PageController, :inertia
   end
 
   # Other scopes may use custom stacks.

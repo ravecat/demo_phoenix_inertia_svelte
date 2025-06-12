@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.25.5",
+    "esbuild-svelte": "^0.9.3"
+  },
+  "dependencies": {
+    "@inertiajs/svelte": "^2.0.12",
+    "axios": "^1.9.0",
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html",
+    "phoenix_live_view": "file:../deps/phoenix_live_view",
+    "svelte": "^5.33.19",
+    "topbar": "^3.0.0"
+  }
+}

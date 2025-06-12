@@ -52,6 +52,7 @@ defmodule DemoPhoenixInertiaSvelte.MixProject do
        compile: false,
        depth: 1},
       {:swoosh, "~> 1.16"},
+      {:inertia, "~> 2.4.0"},
       {:req, "~> 0.5"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
@@ -74,11 +75,19 @@ defmodule DemoPhoenixInertiaSvelte.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind demo_phoenix_inertia_svelte", "esbuild demo_phoenix_inertia_svelte"],
+      "assets.setup": [
+        "tailwind.install --if-missing",
+        "cmd --cd assets npm install"
+      ],
+      "assets.build": [
+        "tailwind demo_phoenix_inertia_svelte",
+        "cmd --cd assets node build.js",
+        "cmd --cd assets node build.js --ssr"
+      ],
       "assets.deploy": [
         "tailwind demo_phoenix_inertia_svelte --minify",
-        "esbuild demo_phoenix_inertia_svelte --minify",
+        "cmd --cd assets node build.js --deploy",
+        "cmd --cd assets node build.js --deploy --ssr",
         "phx.digest"
       ]
     ]

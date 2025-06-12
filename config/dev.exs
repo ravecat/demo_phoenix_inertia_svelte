@@ -25,8 +25,8 @@ config :demo_phoenix_inertia_svelte, DemoPhoenixInertiaSvelteWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "CN3I9pvx8oGFogvLWV82PtfQdaY/ZjKP3TrO7NOzRDGV8CXKnjnmmf1bhkin8L6e",
   watchers: [
-    esbuild:
-      {Esbuild, :install_and_run, [:demo_phoenix_inertia_svelte, ~w(--sourcemap=inline --watch)]},
+    node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)],
+    node: ["build.js", "--watch", "--ssr", cd: Path.expand("../assets", __DIR__)],
     tailwind: {Tailwind, :install_and_run, [:demo_phoenix_inertia_svelte, ~w(--watch)]}
   ]
 
