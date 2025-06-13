@@ -2,6 +2,8 @@
 
 Demonstration application showing Phoenix integration with Inertia.js and Svelte 5.
 
+The necessary changes can be found in [this commit](https://github.com/ravecat/demo_phoenix_inertia_svelte/commit/0a23cd4f139923d721fa6e1f4b3c8abb62d261f6).
+
 ## Technology Stack
 
 - **Phoenix 1.8** - Web framework for Elixir
