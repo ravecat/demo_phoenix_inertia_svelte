@@ -11,7 +11,7 @@ config :bun,
   version: "1.2.16",
   assets: [args: [], cd: Path.expand("../assets", __DIR__)],
   vite: [
-    args: ~w(x vite),
+    args: ~w(vite),
     cd: Path.expand("../assets", __DIR__),
     env: %{"MIX_BUILD_PATH" => Mix.Project.build_path()}
   ]
