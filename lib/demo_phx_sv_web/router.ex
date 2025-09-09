@@ -1,6 +1,16 @@
 defmodule DemoPhxSvWeb.Router do
   use DemoPhxSvWeb, :router
 
+  pipeline :inertia do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, html: {DemoPhxSvWeb.Layouts, :inertia_root}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug Inertia.Plug
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -15,9 +25,15 @@ defmodule DemoPhxSvWeb.Router do
   end
 
   scope "/", DemoPhxSvWeb do
-    pipe_through :browser
+    pipe_through :inertia
 
     get "/", PageController, :home
+  end
+
+  scope "/", DemoPhxSvWeb do
+    pipe_through :browser
+
+    live "/lv", HomeLive, :index
   end
 
   # Other scopes may use custom stacks.

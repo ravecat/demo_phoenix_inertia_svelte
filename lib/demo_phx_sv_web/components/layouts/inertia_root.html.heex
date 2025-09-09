@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.inertia_title>Demo Phoenix Svelte - Inertia</.inertia_title>
+    <.inertia_head content={assigns[:inertia_head]} />
+    <PhoenixVite.Components.assets
+      names={["js/app.js", "css/app.css"]}
+      manifest={{:demo_phx_sv, "priv/static/.vite/manifest.json"}}
+      dev_server={PhoenixVite.Components.has_vite_watcher?(DemoPhxSvWeb.Endpoint)}
+      to_url={fn p -> static_url(@conn, p) end}
+    />
+    <script>
+      (() => {
+        const setTheme = (theme) => {
+          if (theme === "system") {
+            localStorage.removeItem("phx:theme");
+            document.documentElement.removeAttribute("data-theme");
+          } else {
+            localStorage.setItem("phx:theme", theme);
+            document.documentElement.setAttribute("data-theme", theme);
+          }
+        };
+        if (!document.documentElement.hasAttribute("data-theme")) {
+          setTheme(localStorage.getItem("phx:theme") || "system");
+        }
+        window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
+        window.addEventListener("phx:set-theme", ({ detail: { theme } }) => setTheme(theme));
+      })();
+    </script>
+  </head>
+  <body class="bg-white antialiased">
+    <DemoPhxSvWeb.Layouts.flash_group flash={@flash} />
+    {@inner_content}
+  </body>
+</html>

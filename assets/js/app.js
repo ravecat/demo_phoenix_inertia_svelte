@@ -79,3 +79,32 @@ if (process.env.NODE_ENV === "development") {
     window.liveReloader = reloader
   })
 }
+
+import "vite/modulepreload-polyfill";
+
+/*
+ * --------------------------------------------------------------------
+ * Intitialize client-side Inertia app
+ * --------------------------------------------------------------------
+ *
+ * `axios` is used for CSRF protection. More information can be found
+ * in the Inertia.js Phoenix Adapter README.
+ *
+ * [Setting up the client-side](https://hexdocs.pm/inertia/readme.html#setting-up-the-client-side)
+ *
+ */
+import { createInertiaApp } from '@inertiajs/svelte'
+import { mount } from 'svelte'
+import axios from "axios"
+
+axios.defaults.xsrfHeaderName = "x-csrf-token"
+
+createInertiaApp({
+  resolve: async (name) => {
+    const pages = await import.meta.glob('./pages/**/*.svelte', { eager: true });
+    return pages[`./pages/${name}.svelte`];
+  },
+  setup({ el, App, props }) {
+    mount(App, { target: el, props });
+  },
+});
