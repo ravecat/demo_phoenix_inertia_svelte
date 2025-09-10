@@ -41,7 +41,7 @@ defmodule DemoPhxSv.MixProject do
   defp deps do
     [
       {:inertia, "~> 2.5.1"},
-      {:phoenix_vite, "~> 0.3"},
+      {:phoenix_vite, "~> 0.1"},
       {:phoenix, "~> 1.8.1"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.13"},
